@@ -35,7 +35,7 @@ def main : IO Unit := do
     enabledExtensionNames := ← Glfw.extensions
     enabledLayerNames := #[
       -- "VK_LAYER_LUNARG_api_dump",
-      "VK_LAYER_KHRONOS_validation"
+      -- "VK_LAYER_KHRONOS_validation"
     ],
   }
 

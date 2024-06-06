@@ -32,7 +32,8 @@ let (res, inst) ← Vk.createInstance {
 See [`Demo.lean`](/src/Demo.lean) for an example that renders a single triangle.
 
 To build and run:
-- If on non-NixOS, uncomment the `patchelf` line in `fixupPhase`.
+
+- If on non-NixOS, uncomment the `patchelf` line in `fixupPhase`, and comment the `wrapProgram` line.
 - `nix build`
 - `./result/bin/demo`
 

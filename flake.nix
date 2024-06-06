@@ -37,7 +37,7 @@
             pkgs.stdenv.mkDerivation {
               name = "lean-vulkan";
               src = ./.;
-              nativeBuildInputs = [ lean4 ];
+              nativeBuildInputs = [ lean4 pkgs.makeWrapper ];
               buildInputs = with pkgs; [ vulkan-headers vulkan-loader glfw-wayland ];
               buildPhase = ''
                 # Hack to not have the FFI targets in the first phase.
@@ -51,6 +51,9 @@
               fixupPhase = ''
                 # Hack to make a Vulkan program run on a non-NixOS distro.
                 # patchelf --remove-rpath --set-interpreter /usr/lib/ld-linux-x86-64.so.2 $out/bin/demo
+
+                # Hack on NixOS if system glibc version differs from the version in the pkgs
+                wrapProgram $out/bin/demo --prefix XDG_DATA_DIRS : "${pkgs.mesa.drivers}"/share
               '';
               vk_xml_path = "${vulkan-docs}/xml/vk.xml";
               shader_path = "${shaders}";
